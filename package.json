@@ -1,0 +1,25 @@
+{
+  "name": "async-routine",
+  "version": "1.0.0",
+  "description": "A promise-based orchestration tool for asynchronous javascript.",
+  "main": "async-routine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gamekid/async-routine.git"
+  },
+  "keywords": [
+    "async",
+    "async-flow",
+    "callback",
+    "promise"
+  ],
+  "author": "Nate Selof <selof86@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gamekid/async-routine/issues"
+  },
+  "homepage": "https://github.com/gamekid/async-routine#readme"
+}
