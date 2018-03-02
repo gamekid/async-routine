@@ -1,6 +1,6 @@
 {
   "name": "async-routine",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A promise-based orchestration tool for asynchronous javascript.",
   "main": "async-routine.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "keywords": [
     "async",
-    "async-flow",
+    "async-flow-routine",
     "callback",
     "promise"
   ],

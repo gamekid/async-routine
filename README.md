@@ -1,4 +1,4 @@
-# async-flow
+# async-routine
 A promise-based orchestration tool for asynchronous javascript.
 
 # Setup
