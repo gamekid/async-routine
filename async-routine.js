@@ -6,12 +6,12 @@ function AsyncRoutine() {
   /////////////////////////////////////////////// UTILITIES ////
 
   // default promise, override by setting AsyncRoutine.Promise = $q
-  self.Promise = function(fn) {
+  self.Promise = function (fn) {
     return new Promise(fn);
   }
 
-  self.PromiseResolve = function(value) {
-    return self.Promise( function (resolve, reject) {
+  self.PromiseResolve = function (value) {
+    return self.Promise(function (resolve, reject) {
       return resolve(value);
     });
   }
@@ -21,18 +21,18 @@ function AsyncRoutine() {
   self.routine = [];
   self.currentActions = null;
 
-  self.then = function(keyOrFn, possibleFn) {
-    self.wait();
-    return self.and(keyOrFn, possibleFn);
+  self.then = function (keyOrFn, possibleFn) {
+    return self.wait().and(keyOrFn, possibleFn);
   }
 
-  self.wait = function(){
+  self.wait = function () {
     // make a new group of actions
     self.currentActions = [];
     self.routine.push(self.currentActions);
+    return self;
   }
 
-  self.action = function(keyOrFn, possibleFn) {
+  self.action = function (keyOrFn, possibleFn) {
     // add this action to current group
     if (typeof possibleFn === 'function') {
       let step = {};
@@ -47,14 +47,18 @@ function AsyncRoutine() {
   // setup aliases
   self.first = self.after = self.last = self.then;
   self.and = self.with = self.action;
-  
+
   ///////////////////////////////////////////// ACTION PROCESSING ////
 
-  self.exec = function() { // returns a promise
+  self.exec = function () { // returns a promise
+    // clean up state
+    self.routine = self.routine.filter(function (actions) {
+      return actions.length > 0;
+    });
     self.responses = {};
     self.completion = [];
     self.isComplete = false;
-    self.promise = self.Promise( function (resolve, reject) {
+    self.promise = self.Promise(function (resolve, reject) {
       // save resolve and reject actions for other methods
       self.resolve = function () {
         self.isComplete = true;
@@ -125,11 +129,11 @@ function AsyncRoutine() {
         stepCompletion.push(false);
         // convert response into a promise (if it isn't already)
         let definitelyPromise = typeof possiblePromise.then === "function" ?
-          possiblePromise :  
+          possiblePromise :
           PromiseResolve(possiblePromise);
 
         definitelyPromise
-          .then( function (response) {
+          .then(function (response) {
             // mark as complete
             stepCompletion[actions.indexOf(action)] = true;
             // should we put this in responses?
