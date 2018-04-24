@@ -50,7 +50,7 @@ function AsyncRoutine() {
 
   ///////////////////////////////////////////// ACTION PROCESSING ////
 
-  self.exec = function () { // returns a promise
+  self.exec = function (formatResponses) { // returns a promise
     // clean up state
     self.routine = self.routine.filter(function (actions) {
       return actions.length > 0;
@@ -71,7 +71,17 @@ function AsyncRoutine() {
       // start the steps
       self.doStep(0);
     });
-    return self.promise;
+    if (typeof formatResponses === 'function') {
+      return self.Promise(function (resolve, reject) {
+        self.promise
+          .then(function (responses) {
+            return resolve(formatResponses(responses));
+          })
+          .catch(function (err) { return reject(err) });
+      });
+    } else {
+      return self.promise;
+    }
   }
 
   self.doStep = function (index) {
