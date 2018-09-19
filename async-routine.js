@@ -33,6 +33,10 @@ function AsyncRoutine() {
   }
 
   self.action = function (keyOrFn, possibleFn) {
+    // check to see if we have a step going
+    if (self.currentActions === null) {
+      self.wait();
+    }
     // add this action to current group
     if (typeof possibleFn === 'function') {
       let step = {};
