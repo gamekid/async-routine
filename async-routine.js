@@ -144,7 +144,7 @@ function AsyncRoutine() {
         // convert response into a promise (if it isn't already)
         let definitelyPromise = typeof possiblePromise.then === "function" ?
           possiblePromise :
-          PromiseResolve(possiblePromise);
+          self.PromiseResolve(possiblePromise);
 
         definitelyPromise
           .then(function (response) {
